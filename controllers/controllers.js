@@ -36,6 +36,7 @@ export const getOne = async (req, res) => {
     )[0];
     if (doc) {
       res.status(200).json(doc);
+      //TODO: move this to api gw? (api composition pattern)
       analyticsService.updateViews(req.params.code, req.headers.authorization);
     } else res.status(404).send();
   } catch (error) {
