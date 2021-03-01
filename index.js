@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
-import db from './services/dbService.js';
+import { connectMongoDb } from './services/dbService.js';
 
 import { API_PATH } from './constants/constants.js';
 import routes from './routes/routes.js';
