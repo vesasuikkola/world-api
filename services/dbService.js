@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 import { collections } from '../constants/constants.js';
 import * as models from '../models/models.js';
-import dotenv from 'dotenv';
-dotenv.config();
+import { SECRETS } from '../config.js';
 
-export const connectMongoDb = mongoose.connect(process.env.MONGODB_URI, {
+export const connectMongoDb = mongoose.connect(SECRETS.mongodb_uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -27,3 +26,5 @@ export const readCollection = (collection, code) => {
       return undefined;
   }
 };
+
+export default connectMongoDb;

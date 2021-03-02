@@ -1,4 +1,5 @@
 import { readCollection } from '../services/dbService.js';
+import { collections } from '../constants/constants.js';
 
 export const usage = async (req, res) => {
   try {
@@ -12,8 +13,8 @@ export const usage = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const docs = await readCollection('countries');
-    docs ? res.status(200).json(docs) : res.status(404).send();
+    const countries = await readCollection(collections.COUNTRIES);
+    countries ? res.status(200).json(countries) : res.status(404).send();
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -21,8 +22,12 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
   try {
-    const doc = (await readCollection('countries', req.params.code))[0];
-    doc ? res.status(200).json(doc) : res.status(404).send();
+    const countryCode = req.params.code;
+    const country = (
+      await readCollection(collections.COUNTRIES, countryCode)
+    )[0].toJSON();
+    country.Cities = await readCollection(collections.CITIES, countryCode);
+    country ? res.status(200).json(country) : res.status(404).send();
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

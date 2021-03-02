@@ -1,17 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
-dotenv.config();
-import { connectMongoDb } from './services/dbService.js';
 
-import { API_PATH } from './constants/constants.js';
+import { APP } from './config.js';
+import './services/dbService.js';
 import routes from './routes/routes.js';
 
 const app = express();
-
 app.use(cors());
-app.use(API_PATH, routes);
 
-const PORT = process.env.PORT || 4001;
-const HOST = process.env.HOST || 'localhost';
-app.listen(PORT, () => console.log(`World API running on ${HOST}:${PORT}`));
+app.use(APP.path, routes);
+
+app.listen(APP.port, () =>
+  console.log(`World API running on ${APP.host}:${APP.port}`)
+);

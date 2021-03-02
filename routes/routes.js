@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/countries/:code', isAuthorized, controllers.getOne);
 router.get('/countries', isAuthorized, controllers.getAll);
-router.get('/', isAuthorized, controllers.usage); //FIXME: show this for non-existing collections
+router.get('/', isAuthorized, controllers.usage);
 
 export default router;
